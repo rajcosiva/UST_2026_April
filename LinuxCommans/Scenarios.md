@@ -237,4 +237,254 @@ DNS troubleshooting.
 
 ---
 
-# 11. Too Many Ope
+# 11. Too Many Open Files
+
+## Investigation
+
+```bash
+ulimit -n
+lsof | wc -l
+```
+
+## Learning Outcome
+File descriptor management.
+
+---
+
+# 12. Zombie Processes
+
+## Investigation
+
+```bash
+ps aux | grep Z
+```
+
+## Learning Outcome
+Process lifecycle management.
+
+---
+
+# 13. High Swap Usage
+
+## Investigation
+
+```bash
+free -m
+swapon -s
+```
+
+## Learning Outcome
+Swap performance impact.
+
+---
+
+# 14. Disk Not Mounted After Reboot
+
+## Investigation
+
+```bash
+lsblk
+mount
+cat /etc/fstab
+```
+
+## Learning Outcome
+Persistent mount configuration.
+
+---
+
+# 15. Suspicious Login Activity
+
+## Investigation
+
+```bash
+last
+who
+grep "Failed password" /var/log/secure
+```
+
+## Learning Outcome
+Basic security incident detection.
+
+---
+
+# 16. Application Not Listening on Port
+
+## Investigation
+
+```bash
+ss -tulnp
+curl localhost:8080
+```
+
+## Learning Outcome
+Application port debugging.
+
+---
+
+# 17. Log File Growing Too Fast
+
+## Investigation
+
+```bash
+du -sh /var/log/*
+```
+
+## Learning Outcome
+Log rotation management.
+
+---
+
+# 18. Cron Job Not Executing
+
+## Investigation
+
+```bash
+crontab -l
+grep CRON /var/log/syslog
+```
+
+## Learning Outcome
+Automation debugging.
+
+---
+
+# 19. Kubernetes Node Resource Exhaustion
+
+## Investigation
+
+```bash
+free -m
+df -h
+nproc
+```
+
+## Learning Outcome
+Node-level troubleshooting.
+
+---
+
+# 20. Slow Disk I/O
+
+## Investigation
+
+```bash
+iostat -x 2
+```
+
+## Learning Outcome
+Disk performance analysis.
+
+---
+
+# 21. Container Not Starting
+
+## Investigation
+
+```bash
+free -m
+df -h
+uname -a
+```
+
+## Learning Outcome
+Container host validation.
+
+---
+
+# 22. Unexpected Server Restart
+
+## Investigation
+
+```bash
+last reboot
+uptime
+```
+
+## Learning Outcome
+Reboot root cause analysis.
+
+---
+
+# 23. High Network Traffic Spike
+
+## Investigation
+
+```bash
+tcpdump -i eth0
+```
+
+## Learning Outcome
+Traffic monitoring.
+
+---
+
+# 24. Permission Denied Error
+
+## Investigation
+
+```bash
+ls -l file.sh
+chmod +x file.sh
+```
+
+## Learning Outcome
+Linux permission fundamentals.
+
+---
+
+# 25. Log Analysis Challenge
+
+## Tasks
+
+Find top IPs:
+
+```bash
+awk '{print $1}' access.log | sort | uniq -c | sort -nr | head
+```
+
+Count 500 errors:
+
+```bash
+grep "500" access.log | wc -l
+```
+
+Extract unique URLs:
+
+```bash
+awk '{print $7}' access.log | sort | uniq
+```
+
+## Learning Outcome
+Real-world log analytics skills.
+
+---
+
+# Final Objective
+
+These scenarios simulate real production incidents.
+
+Mastering them prepares you for:
+
+- DevOps Roles
+- SRE Roles
+- Cloud Engineering
+- Production Support
+- CI/CD Engineering
+- Incident Response
+
+---
+
+# Recommended Practice Strategy
+
+1. Break your own VM intentionally.
+2. Simulate failures.
+3. Investigate using commands.
+4. Document root cause.
+5. Practice repeatedly.
+
+---
+
+# License
+
+Free to use for educational and training purposes.
