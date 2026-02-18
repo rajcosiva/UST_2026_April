@@ -168,6 +168,190 @@ A structured reference guide for essential Linux commands covering:
 | journalctl | View system logs | `journalctl -xe` | Troubleshoot issues |
 
 ---
+---
+
+# 12. Advanced Monitoring & Performance (DevOps Level)
+
+| Command | Description | Example | DevOps Use Case |
+|----------|------------|----------|-----------------|
+| htop | Advanced interactive process viewer | `htop` | Visual CPU & memory monitoring |
+| atop | Advanced system monitoring | `atop` | Historical performance tracking |
+| iostat | Disk I/O statistics | `iostat -x 2` | Identify disk bottleneck |
+| mpstat | CPU stats per core | `mpstat -P ALL 2` | Detect CPU imbalance |
+| sar | Historical performance data | `sar -u 1 5` | Performance investigation |
+| dstat | Combined resource stats | `dstat` | Real-time resource overview |
+| free -m | Memory in MB | `free -m` | Debug memory usage |
+| df -i | Inode usage | `df -i` | Troubleshoot inode exhaustion |
+
+---
+
+# 13. Advanced Disk & Storage Management
+
+| Command | Description | Example | DevOps Use Case |
+|----------|------------|----------|-----------------|
+| lsblk | List block devices | `lsblk` | Check attached volumes |
+| blkid | Display UUIDs | `blkid` | Identify disk |
+| mount | Mount filesystem | `mount /dev/sdb1 /mnt` | Attach storage |
+| umount | Unmount filesystem | `umount /mnt` | Detach storage |
+| fdisk | Partition disk | `fdisk /dev/sdb` | Create partition |
+| mkfs | Format filesystem | `mkfs.ext4 /dev/sdb1` | Prepare new disk |
+| fsck | Check filesystem | `fsck /dev/sdb1` | Repair filesystem |
+| swapon | Enable swap | `swapon -a` | Increase memory |
+| swapoff | Disable swap | `swapoff -a` | Troubleshooting memory |
+
+---
+
+# 14. Advanced Networking & Troubleshooting
+
+| Command | Description | Example | DevOps Use Case |
+|----------|------------|----------|-----------------|
+| tcpdump | Capture packets | `tcpdump -i eth0` | Network debugging |
+| traceroute | Trace network path | `traceroute google.com` | Routing issues |
+| mtr | Network diagnostic tool | `mtr google.com` | Latency analysis |
+| nc | Netcat utility | `nc -zv localhost 8080` | Port connectivity test |
+| telnet | Manual port test | `telnet localhost 8080` | Service validation |
+| host | DNS lookup | `host google.com` | DNS debugging |
+| dig | Detailed DNS lookup | `dig google.com` | DNS resolution issue |
+
+---
+
+# 15. Log Analysis & Debugging
+
+| Command | Description | Example | DevOps Use Case |
+|----------|------------|----------|-----------------|
+| journalctl -u service | View service logs | `journalctl -u nginx` | Debug service failure |
+| journalctl -xe | Detailed errors | `journalctl -xe` | Investigate crash |
+| lsof | List open files | `lsof -i :8080` | Identify port usage |
+| strace | Trace system calls | `strace -p 1234` | Debug hanging process |
+| grep -r | Recursive search | `grep -r error /var/log` | Root cause analysis |
+
+### Example Log Pipelines
+
+Find top IP addresses:
+
+```bash
+awk '{print $1}' access.log | sort | uniq -c | sort -nr | head
+```
+
+Count failed logins:
+
+```bash
+grep "Failed password" /var/log/secure | wc -l
+```
+
+---
+
+# 16. Cron & Job Scheduling (Automation)
+
+| Command | Description | Example | DevOps Use Case |
+|----------|------------|----------|-----------------|
+| crontab -e | Edit cron jobs | `crontab -e` | Schedule automation |
+| crontab -l | List cron jobs | `crontab -l` | Verify scheduled jobs |
+| crontab -r | Remove cron jobs | `crontab -r` | Cleanup automation |
+| at | Schedule one-time job | `at 10:00` | Delayed execution |
+| watch | Execute repeatedly | `watch df -h` | Live monitoring |
+
+### Cron Format
+
+```
+* * * * * command
+│ │ │ │ │
+│ │ │ │ └── Day of week
+│ │ │ └──── Month
+│ │ └────── Day of month
+│ └──────── Hour
+└────────── Minute
+```
+
+Example: Daily backup at 2 AM
+
+```bash
+0 2 * * * /home/backup.sh
+```
+
+---
+
+# 17. Process Control & Background Jobs
+
+| Command | Description | Example | DevOps Use Case |
+|----------|------------|----------|-----------------|
+| jobs | List background jobs | `jobs` | Manage scripts |
+| bg | Resume in background | `bg %1` | Continue execution |
+| fg | Bring to foreground | `fg %1` | Debug interactively |
+| nohup | Run after logout | `nohup script.sh &` | Long-running jobs |
+
+---
+
+# 18. Environment & Shell Management
+
+| Command | Description | Example | DevOps Use Case |
+|----------|------------|----------|-----------------|
+| export | Set environment variable | `export VAR=value` | Application config |
+| env | Show environment variables | `env` | Debug environment |
+| source | Reload config | `source ~/.bashrc` | Apply changes |
+| set | Show shell variables | `set` | Debug script |
+
+---
+
+# 19. DevOps-Oriented System Information
+
+| Command | Description | Example | DevOps Use Case |
+|----------|------------|----------|-----------------|
+| uname -a | Kernel information | `uname -a` | Check OS version |
+| hostnamectl | Host details | `hostnamectl` | Verify system identity |
+| uptime | System uptime | `uptime` | Detect reboot |
+| nproc | CPU core count | `nproc` | Size build agents |
+| lsblk | Block devices | `lsblk` | Validate cloud volume |
+| mount | Mounted filesystems | `mount` | Verify storage mount |
+
+---
+
+# 20. Powerful DevOps Command Pipelines
+
+### Kill process using port 8080
+
+```bash
+lsof -t -i:8080 | xargs kill -9
+```
+
+### Delete logs older than 7 days
+
+```bash
+find /var/log -type f -mtime +7 -delete
+```
+
+### Find top CPU consuming processes
+
+```bash
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head
+```
+
+### Find largest files in system
+
+```bash
+du -ah / | sort -rh | head -20
+```
+
+### Check memory usage by process
+
+```bash
+ps aux --sort=-%mem | head
+```
+
+---
+
+# DevOps Use Cases Covered
+
+- Production troubleshooting
+- CI/CD debugging
+- Kubernetes node debugging
+- Cloud VM monitoring
+- Log analysis
+- Performance tuning
+- Automation scripting
+- Incident response
+
+---
 
 # Contribution
 
