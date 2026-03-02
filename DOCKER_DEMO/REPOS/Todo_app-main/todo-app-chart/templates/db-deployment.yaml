@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.postgres.deploymentName }}
+  labels:
+    app: {{ .Values.postgres.appLabel }}
+spec:
+  replicas: {{ .Values.postgres.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.postgres.appLabel }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.postgres.appLabel }}
+    spec:
+      containers:
+        - name: {{ .Values.postgres.containerName }}
+          image: {{ .Values.postgres.image }}
+          ports:
+            - containerPort: {{ .Values.postgres.containerPort }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.postgres.secretName }}
+          volumeMounts:
+            - name: {{ .Values.postgres.volumeName }}
+              mountPath: {{ .Values.postgres.volumeMountPath }}
+              subPath: {{ .Values.postgres.volumeSubPath }}
+      initContainers:
+        - name: {{ .Values.postgres.initContainerName }}
+          image: {{ .Values.postgres.initContainerImage }}
+          command:
+            - "sh"
+            - "-c"
+            - {{ .Values.postgres.initContainerCommand }}
+          volumeMounts:
+            - name: {{ .Values.postgres.volumeName }}
+              mountPath: {{ .Values.postgres.initVolumeMountPath }}
+      volumes:
+        - name: {{ .Values.postgres.volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.postgres.pvcName }}
+

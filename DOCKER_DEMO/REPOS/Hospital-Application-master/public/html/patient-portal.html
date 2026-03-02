@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patient Portal - HealthCare Plus</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <!-- Loading bar for page transitions -->
+  <style>
+    .page-loading-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #007bff, #0056b3);
+      transition: width 0.3s ease;
+      z-index: 10001;
+    }
+  </style>
+  <style>
+    .auth-container {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .auth-card {
+      max-width: 400px;
+      width: 100%;
+    }
+    .patient-dashboard {
+      display: none;
+    }
+    .appointment-card {
+      border-left: 4px solid #007bff;
+      margin-bottom: 15px;
+    }
+    .appointment-card.cancelled {
+      border-left-color: #dc3545;
+      opacity: 0.7;
+    }
+    .status-badge {
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar-custom">
+    <div class="container d-flex justify-content-between align-items-center py-3">
+      <div class="d-flex align-items-center gap-2">
+        <img src="/images/logo.jpeg" alt="Logo" style="height: 40px; border-radius: 8px;" />
+        <h1 class="h4 m-0 fw-bold text-white">HealthCare Plus</h1>
+      </div>
+      <nav class="d-flex justify-content-end align-items-center gap-2 mb-3">
+        <a href="index.html" class="nav-btn">Home</a>
+        <a href="index.html" id="logoutBtn" class="nav-btn" style="display: none;">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Authentication Section -->
+  <div id="authSection" class="auth-container">
+    <div class="auth-card">
+      <!-- Login Form -->
+      <div id="loginForm" class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+          <h4 class="mb-0">Patient Login</h4>
+        </div>
+        <div class="card-body">
+          <form id="loginFormElement" autocomplete="off">
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input type="text" class="form-control" id="loginUsername" autocomplete="off" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control" id="loginPassword" autocomplete="off" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+            <div class="text-center">
+              <a href="#" id="showRegister" class="text-decoration-none">Don't have an account? Register here</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Registration Form -->
+      <div id="registerForm" class="card shadow" style="display: none;">
+        <div class="card-header bg-success text-white text-center">
+          <h4 class="mb-0">Patient Registration</h4>
+        </div>
+        <div class="card-body">
+          <form id="registerFormElement" autocomplete="off">
+            <div class="mb-3">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="regName" autocomplete="off" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input type="text" class="form-control" id="regUsername" autocomplete="off" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" id="regEmail" autocomplete="off" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Contact Number</label>
+              <input type="tel" class="form-control" id="regContact" autocomplete="off" required />
+              <!-- <div class="form-text">Enter 10 digit mobile number</div> -->
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control" id="regPassword" autocomplete="new-password" required minlength="6" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" id="regConfirmPassword" autocomplete="new-password" required minlength="6" />
+            </div>
+            <button type="submit" class="btn btn-success w-100 mb-3">Register</button>
+            <div class="text-center">
+              <a href="#" id="showLogin" class="text-decoration-none">Already have an account? Login here</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Patient Dashboard -->
+  <div id="patientDashboard" class="patient-dashboard">
+    <div class="container py-5">
+      <!-- Welcome Section -->
+      <div class="row mb-4">
+        <div class="col-md-8">
+          <h2>Welcome, <span id="patientName"></span>!</h2>
+          <p class="text-muted">Manage your appointments and profile</p>
+        </div>
+        <div class="col-md-4 text-end">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookAppointmentModal">
+            <i class="fas fa-plus"></i> Book New Appointment
+          </button>
+        </div>
+      </div>
+
+      <!-- Profile Section -->
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="mb-0">Profile Information</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-4"><strong>Name:</strong></div>
+                <div class="col-sm-8" id="profileName"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4"><strong>Contact:</strong></div>
+                <div class="col-sm-8" id="profileContact"></div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4"><strong>Email:</strong></div>
+                <div class="col-sm-8" id="profileEmail"></div>
+              </div>
+              <button class="btn btn-outline-primary btn-sm mt-3" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                <i class="fas fa-edit"></i> Edit Profile
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="mb-0">Quick Stats</h5>
+            </div>
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-4">
+                  <h4 id="totalAppointments" class="text-primary">0</h4>
+                  <small class="text-muted">Total</small>
+                </div>
+                <div class="col-4">
+                  <h4 id="upcomingAppointments" class="text-success">0</h4>
+                  <small class="text-muted">Upcoming</small>
+                </div>
+                <div class="col-4">
+                  <h4 id="completedAppointments" class="text-info">0</h4>
+                  <small class="text-muted">Completed</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Appointments Section -->
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">My Appointments</h5>
+        </div>
+        <div class="card-body">
+          <div id="appointmentsList">
+            <!-- Appointments will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book Appointment Modal -->
+  <div class="modal fade" id="bookAppointmentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Book New Appointment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="appointmentForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Department</label>
+                  <select class="form-select" id="deptSelect" required></select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Doctor</label>
+                  <select class="form-select" id="doctorSelect" required></select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Appointment Date</label>
+                  <input type="date" class="form-control" id="appointmentDate" required />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Time Slot</label>
+                  <select class="form-select" id="timeSelect" required></select>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Symptoms</label>
+              <textarea class="form-control" id="symptoms" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Address</label>
+              <input type="text" class="form-control" id="patientAddress" required />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="bookAppointmentBtn">Book Appointment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProfileForm">
+            <div class="mb-3">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="editName" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Contact Number</label>
+              <input type="tel" class="form-control" id="editContact" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" id="editEmail" required />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="updateProfileBtn">Update Profile</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Appointment Modal -->
+  <div class="modal fade" id="editAppointmentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Appointment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editAppointmentForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Department</label>
+                  <select class="form-select" id="editDeptSelect" required></select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Doctor</label>
+                  <select class="form-select" id="editDoctorSelect" required></select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Appointment Date</label>
+                  <input type="date" class="form-control" id="editAppointmentDate" required />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Time Slot</label>
+                  <select class="form-select" id="editTimeSelect" required></select>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Symptoms</label>
+              <textarea class="form-control" id="editSymptoms" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Address</label>
+              <input type="text" class="form-control" id="editPatientAddress" required />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" id="updateAppointmentBtn">Update Appointment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page loading bar -->
+  <div class="page-loading-bar" id="pageLoadingBar"></div>
+  
+  <!-- Scripts -->
+  <script src="/js/ui-utils.js"></script>
+  <script src="/js/patient-portal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Initialize UI enhancements -->
+  <script>
+    // Initialize page loading bar
+    function updateLoadingBar(percent) {
+      const bar = document.getElementById('pageLoadingBar');
+      bar.style.width = percent + '%';
+      if (percent === 100) {
+        setTimeout(() => {
+          bar.style.width = '0%';
+        }, 500);
+      }
+    }
+    
+    // Show loading bar on page transitions
+    window.addEventListener('beforeunload', () => {
+      updateLoadingBar(30);
+    });
+    
+    // Complete loading bar when page is loaded
+    window.addEventListener('load', () => {
+      updateLoadingBar(100);
+    });
+  </script>
+</body>
+</html> 

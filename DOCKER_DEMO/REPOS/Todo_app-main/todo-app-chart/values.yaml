@@ -1,0 +1,68 @@
+postgres:
+  # db-deployment.yaml
+  deploymentName: postgres-deployment
+  appLabel: postgres
+  replicas: 2
+  containerName: postgres
+  image: daviddocker526/postgres:latest
+  containerPort: 5432
+  secretName: postgres-secret
+  volumeName: postgres-data
+  volumeMountPath: /var/lib/postgresql/data
+  volumeSubPath: data
+  initContainerName: init-db
+  initContainerImage: busybox
+  initContainerCommand: "mkdir -p /var/lib/postgresql/data && chmod 700 /var/lib/postgresql/data && chown -R 1001:1001 /var/lib/postgresql/data"
+  initVolumeMountPath: /var/lib/postgresql/data
+  pvcName: postgres-pvc
+
+  # db-service.yaml
+  serviceName: postgres-service
+  servicePort: 5432
+  targetPort: 5432
+  serviceType: ClusterIP
+
+  # secrets.yaml
+  user: postgres
+  password: mysecretpassword
+  db: postgres
+
+  # pvc.yaml
+  pvcName: postgres-pvc
+  pvcAccessMode: ReadWriteOnce
+  pvcStorage: 10Gi
+
+todo:
+  # todo-deployment.yaml
+  deploymentName: todo-deployment
+  appLabel: todo-app
+  replicas: 2
+  containerName: todo-app
+  image: daviddocker526/todo_app_web:latest
+  containerPort: 5000
+  secretName: postgres-secret
+  postgresHost: postgres-service
+
+  # todo-service.yaml
+  serviceName: todo-service
+  servicePort: 5000
+  targetPort: 5000
+  serviceType: ClusterIP
+
+  # ingress.yaml
+  ingressName: todo-ingress
+  sslRedirect: "false"
+  ingressClassName: nginx
+  ingressPath: /
+  ingressPathType: Prefix
+  servicePort: 5000
+
+storageClass:
+  # storageclass.yaml
+  name: aws-disk-sc
+  provisioner: ebs.csi.aws.com
+  storageAccountType: Standard_LRS
+  kind: Managed
+  reclaimPolicy: Retain
+  volumeBindingMode: WaitForFirstConsumer
+

@@ -1,0 +1,32 @@
+version: '3'
+services:
+  web:
+    build: .
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=postgres
+      - POSTGRES_HOST=db
+    ports:
+      - "5000:5000"
+    networks:
+      - webnet
+      - dbnet
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=postgres
+    networks:
+      - dbnet
+
+networks:
+  webnet:
+    driver: bridge
+  dbnet:
+    driver: bridge
+

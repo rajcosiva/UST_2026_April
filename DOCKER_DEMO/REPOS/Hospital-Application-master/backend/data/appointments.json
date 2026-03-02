@@ -1,0 +1,22 @@
+[
+  {
+    "patientName": "radhey",
+    "patientContact": "9876534312",
+    "patientAddress": "FF21",
+    "symptoms": "ear pain",
+    "department": "Ent",
+    "doctorName": "Dr. Murli Mohan",
+    "date": "2025-08-01",
+    "time": "10:15"
+  },
+  {
+    "patientName": "nitish",
+    "patientContact": "6367450781",
+    "patientAddress": "rama vihar",
+    "symptoms": "heartache",
+    "department": "Cardiology",
+    "doctorName": "Dr. Kartikey",
+    "date": "2025-08-06",
+    "time": "08:45"
+  }
+]
