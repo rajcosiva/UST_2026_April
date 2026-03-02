@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+        body {
+            font-family: 'Lucida Handwriting', cursive;
+            text-align: center;
+            background: url('/images/bg11.jpg');
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            color: rgb(243, 241, 241);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+    .container {
+        background: rgba(0, 0, 0, 0.242);
+        max-width: 80%;
+        padding: 90px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        border-radius: 30px;
+        padding: 20px 50px;
+    }
+
+    .btn-primary {
+        border-radius: 30px;
+        padding: 10px 20px;
+        background-color: white;
+        color: rgb(22, 21, 21);
+        border-color: #0d0d0e;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        font-weight: bold; 
+    }
+
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    .btn-primary:hover {
+        background-color: #df0a0a;
+        color: rgb(232, 223, 223);
+        transform: scale(1.05);
+    }
+
+    .alert {
+        margin-top: 20px;
+        border-radius: 10px;
+    }
+
+</style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Login</h1>
+        <% if (success_msg) { %>
+            <div class="alert alert-success"><%= success_msg %></div>
+        <% } %>
+        <% if (error_msg) { %>
+            <div class="alert alert-danger"><%= error_msg %></div>
+        <% } %>
+        <form action="/auth/login" method="POST">
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flower Shop</title>
+    <style>
+        body {
+            font-family: 'Lucida Handwriting', cursive;
+            text-align: center;
+            background: url('/images/logoo.png');
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            color: rgb(20, 20, 20);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: transparent; /* Make the container background fully transparent */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Optional: add shadow for better visibility */
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            margin: 10px;
+            padding: 15px 30px;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+            font-size: 1.2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #9500ff, #d847f2);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #d847f2, #9500ff);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #9500ff, #d847f2);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, #d847f2, #9500ff);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <a class="btn btn-primary" href="/auth/login">Login</a>
+        <a class="btn btn-secondary" href="/auth/signup">Sign Up</a>
+    </div>
+</body>
+</html>

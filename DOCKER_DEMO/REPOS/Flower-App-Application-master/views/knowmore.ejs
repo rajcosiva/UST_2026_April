@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhi's Flower Fusion</title>
+    <style>
+        
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #0e0e0e;
+    padding: 1em 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 1em;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section {
+    padding: 4em 2em;
+    text-align: center;
+}
+
+#home {
+    background: linear-gradient(rgba(67, 104, 214, 0.5), rgba(55, 163, 235, 0.5));
+    color: rgb(7, 7, 7);
+}
+
+#about, #products, #contact, #customize {
+    background: linear-gradient(rgba(67, 104, 214, 0.5), rgba(55, 163, 235, 0.5));
+    margin-top: 1em;
+}
+
+.product {
+    display: inline-block;
+    width: 30%;
+    margin: 1em;
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form label {
+    margin: 0.5em 0;
+}
+
+form input, form textarea, form button {
+    width: 80%;
+    padding: 0.5em;
+    margin: 0.5em 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background: #0b0b0b;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background: #1613f0;
+    color: rgb(253, 250, 250);
+
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 0.3em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+ 
+    </style>
+   <script>
+    function showAlert() {
+        alert("Thanks for contacting us!");
+        document.getElementById("contactForm").reset(); // Reset the form fields
+        return false; // Prevents the form from submitting
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1>Welcome to Abhi's Flower Fusion</h1>
+        <p>Discover our beautiful collection of flowers.</p>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Welcome to Abhi's Flower Fusion, where every bloom tells a story. Founded in 2020, our shop is dedicated to providing exquisite floral arrangements for all occasions. 
+            We proudly source the freshest flowers from local growers to ensure the highest quality. 
+            Our skilled team of florists combines creativity and expertise to craft stunning designs that make every event memorable. 
+            Whether you're planning a wedding, celebrating a special moment, or simply brightening someone's day, we offer custom arrangements and prompt delivery. 
+            Discover the beauty of flowers with us in online or at <br><b>Flora Avenue at floor no 12,Tolli choke line no 9,Navi Mumbai 0890001. <br/></b> Thank you for choosing Abhi's Flower Fusion 
+            —we're excited to bring a touch of floral magic into your life!
+        </p>
+    </section>
+
+    <section id="products">
+        <h2>Our Products</h2>
+        <div class="product">
+            <img src="/images/redrose.jpg" alt="Red Rose" style="width: 200px; height: 300px;">
+            <h3>Red Rose</h3>
+            <p>A rose is a timeless symbol of love and beauty, enchanting hearts w
+                ith its delicate petals and captivating fragrance.</p>
+        </div>
+        <div class="product">
+            <img src="images/blueorchidflowers.jpg" alt="blueorchidflowers" style="width: 200px; height: 300px;">
+            <h3>Blue Orchides</h3>
+            <p>Exotic flowers known for their vibrant blue color and unique petal shapes, symbolizing rarity and beauty.</p>
+        </div>
+        <div class="product">
+            <img src="images/lilies.jpg" alt="lilies" style="width: 200px; height: 300px;">
+            <h3>Lilies</h3>
+            <p>Elegant flowers known for their large, fragrant blooms and wide variety of colors.</p>
+        </div>
+
+        <div class="product">
+            <img src="images/sunflower.jpg" alt="sunflowe" style="width: 200px; height: 300px;">
+            <h3>Sunflower</h3>
+            <p>Tall, bright flowers that follow the sun, symbolizing loyalty and adoration.</p>
+        </div>
+        <div class="product">
+            <img src="images/tulips.png" alt="Tulip"  style="width: 200px; height: 300px;">
+            <h3>Tulip</h3>
+            <p>Elegant and simple flowers available in many colors, representing perfect love and springtime renewal.</p>
+        </div>
+    </section>
+    <section id="customize">
+        <h1>To customize</h1>
+        <p>Reach our store at Navi Mumbai <br> or <br> Choose customize option in the <a href="/dashboard">dashboard</a>
+            </p>
+            <section id="contact">
+                <h2>Contact Us</h2>
+                <form action="#" onsubmit="return showAlert()">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    
+                    <button type="submit">Submit</button>
+                </form>
+            </section>
+            
+            
+            
+
+    <footer>
+        <p>&copy; 2024 Flower Shop. All rights reserved.</p>
+    </footer>
+
+    
+</body>
+</html>

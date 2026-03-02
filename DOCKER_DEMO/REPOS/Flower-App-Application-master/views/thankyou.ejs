@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+         body::before {
+            content: 'AFF'; /* Replace with your watermark text */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg); /* Rotates the text to create the cross effect */
+            font-size: 5rem; /* Adjust the size as needed */
+            color: rgba(0, 0, 0, 0.1); /* Light color for the watermark */
+            z-index: 0;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 1.5; /* Adjust opacity to make it subtle */
+        }
+
+        body {
+            font-family: 'Lucida Handwriting', cursive;
+            text-align: center;
+            background: linear-gradient(rgba(67, 104, 214, 0.5), rgba(55, 163, 235, 0.5));
+            color: rgb(10, 10, 10);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            margin: 10px;
+            padding: 15px 30px;
+            background-color: #0c0c0c;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background-color: #f1efef;
+            color: rgb(18, 17, 17);
+        }
+
+        .bottom-right-image {
+            position: absolute;
+            bottom: 10;
+            right: 0;
+            width: 300px; /* Adjust the size as needed */
+            height: auto;
+            margin: 20px;
+        }
+        .bottom-left-image {
+            position: absolute;
+            bottom: 10;
+            left: 0;
+            width: 300px; /* Adjust the size as needed */
+            height: auto;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Thank You!</h1>
+        <p>Order created!</p>
+        <p>Happy Shopping!</p>
+        <p>More details email Us</p>
+        <a href="/dashboard" class="btn btn-primary">Click to look more</a>
+    </div>
+    <img src="/images/thankyou1.png" alt="Thank You Image" class="bottom-right-image">
+    <img src="/images/gift.jpg" alt="Happy" class="bottom-left-image">
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        body {
+            font-family: 'Lucida Handwriting', cursive;
+            text-align: center;
+            padding: 50px;
+            background: url('/images/cart1.jpg');
+            background-size: cover; /* Cover the entire background */
+            background-position: top; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #0c0c0c;
+            color: white;
+        }
+        td {
+            background-color: #f2f2f2;
+        }
+        button {
+            margin: 10px;
+            padding: 15px 30px;
+            background-color: #0c0c0c;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Your Cart</h1>
+        <% if (success_msg) { %>
+            <div class="alert alert-success"><%= success_msg %></div>
+        <% } %>
+        <% if (error_msg) { %>
+            <div class="alert alert-danger"><%= error_msg %></div>
+        <% } %>
+        <% if (cartDetails.length > 0) { %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% cartDetails.forEach(item => { %>
+                        <tr>
+                            <td><%= item.product.name %></td>
+                            <td><%= item.quantity %></td>
+                            <td>$<%= item.product.price %></td>
+                            <td>$<%= item.product.price * item.quantity %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <h3 style="color: white; font-weight: bold; font-size: 30px;">Total Price: $<%= totalPrice %></h3>
+            <form action="/cart/order" method="POST">
+                <button type="submit" class="btn btn-primary">Place Order</button>
+            </form>
+        <% } else { %>
+            <p>Your cart is empty.</p>
+        <% } %>
+    </div>
+</body>
+</html>

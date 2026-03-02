@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<style>
+   body {
+            font-family: 'Lucida Handwriting', cursive;
+            text-align: center;
+            background: url('/images/bg14.jpg');
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            color: rgb(7, 7, 7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-dashboard  {
+            margin: 10px;
+            padding: 15px 30px;
+            background-color: #0c0c0c;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: inline-block
+    }
+
+       
+    .btn-dashboard:hover {
+        margin: 10px;
+            padding: 15px 30px;
+            background-color: #f1efef;
+            color: rgb(18, 17, 17);
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+    }
+    .button-group {
+            display: flex;
+            justify-content: center; /* Center the buttons horizontally */
+        }
+
+</style>
+
+</head>
+<body>
+<h1>Hey! Welcome to Abhi's Flower Fusion</h1>
+<div class="button-group">
+    <a href="/seller" class="btn-dashboard">Register as Seller</a>
+    <a href="/product" class="btn-dashboard">Browse Products</a>
+    <a href="/customization" class="btn-dashboard">Customize Order</a>
+</div>
+<div class="button-group">
+    <a href="/knowmore" class="btn-dashboard">Know more about AFF</a>
+</div>
+</body>
+</html>
