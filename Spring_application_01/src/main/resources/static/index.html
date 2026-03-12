@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Kubernetes Spring Demo</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+margin-top:100px;
+}
+
+.card{
+background:#1e293b;
+width:600px;
+margin:auto;
+padding:30px;
+border-radius:10px;
+}
+
+h1{
+color:#38bdf8;
+}
+
+.row{
+margin:10px;
+font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Spring Boot Kubernetes Demo</h1>
+
+<div class="row">Application: <span id="app"></span></div>
+<div class="row">Environment: <span id="env"></span></div>
+<div class="row">Message (ConfigMap): <span id="msg"></span></div>
+<div class="row">Password (Secret): <span id="pass"></span></div>
+<div class="row">Pod Name: <span id="pod"></span></div>
+
+</div>
+
+<script>
+
+fetch("/api/config")
+.then(res => res.json())
+.then(data => {
+
+document.getElementById("app").innerText = data.application
+document.getElementById("env").innerText = data.environment
+document.getElementById("msg").innerText = data.message
+document.getElementById("pass").innerText = data.password
+document.getElementById("pod").innerText = data.pod
+
+})
+
+</script>
+
+</body>
+</html>
