@@ -4,7 +4,7 @@ echo "================================="
 echo "Installing Metrics Server (Secure TLS)"
 echo "================================="
 
-echo "Step 1: Enable kubelet TLS bootstrap"
+echo "Step 1(On Worker Node): Enable kubelet TLS bootstrap"
 
 sudo sed -i 's/serverTLSBootstrap: false/serverTLSBootstrap: true/g' /var/lib/kubelet/config.yaml
 
@@ -13,7 +13,7 @@ sudo systemctl restart kubelet
 
 sleep 10
 
-echo "Step 2: Checking Certificate Signing Requests"
+echo "Step 2 (On Worker Node): Checking Certificate Signing Requests"
 kubectl get csr
 
 echo "Approving pending CSRs..."
@@ -23,14 +23,14 @@ do
 kubectl certificate approve $csr
 done
 
-echo "Step 3: Installing Metrics Server"
+echo "Step 3:(Master Node) Installing Metrics Server"
 
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
 echo "Waiting for Metrics Server to start..."
 sleep 30
 
-echo "Step 4: Checking Metrics Server pod"
+echo "Step 4:(Master Node) Checking Metrics Server pod"
 
 kubectl get pods -n kube-system | grep metrics
 
