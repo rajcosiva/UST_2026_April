@@ -223,7 +223,7 @@ rs.addArb("my-mongodb-arbiter-0.my-mongodb-arbiter-headless.project.svc.cluster.
 ```
 
 ---
-
+updated
 ## ⚠️ If `rs.add()` Fails
 
 ### Remove Arbiter First
